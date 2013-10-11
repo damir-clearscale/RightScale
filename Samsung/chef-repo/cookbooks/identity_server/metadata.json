@@ -1,0 +1,45 @@
+{
+  "name": "identity_server",
+  "description": "Installs/Configures WSO2 Identity Sever",
+  "long_description": "identity_server Cookbook\n===============\nThis cookbook installs and configures WSO2 Identity Server in Linux systems\n\nRequirements\n------------\n#### operation systems\nUbuntu 12.04\nUbuntu 12.10\n\nLicense and Authors\n-------------------\nAuthors: ClearScale <damir@clearscale.net>\n",
+  "maintainer": "ClearScale",
+  "maintainer_email": "taras.kotov@clearscale.net",
+  "license": "All rights reserved",
+  "platforms": {
+  },
+  "dependencies": {
+    "rightscale": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "identity_server/repo_path": {
+      "description": "Path to repository with WSO2 Identity Server package",
+      "recipes": [
+        "identity_server"
+      ],
+      "type": "string",
+      "display_name": "Path to repository with WSO2 Identity Server package",
+      "required": "recommended",
+      "default": "http://54.215.135.186 debian/",
+      "choice": [
+
+      ],
+      "calculated": false
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "cassandra::default": "Install and configure WSO2 Identity Server"
+  },
+  "version": "1.0.0"
+}
