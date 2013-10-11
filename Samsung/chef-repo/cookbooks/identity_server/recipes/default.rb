@@ -29,11 +29,19 @@ packages.each do |p|
   end
 end
 
-
-
 apt_package "wso2is" do
   action :install
   options "--force-yes"
 end
+
+template "/opt/wso2is/repository/conf/carbon.xml" do
+  source "carbon.xml.erb"
+  mode 00644
+  action :create
+  #notifies :restart, "service name"
+  ignore_failure true
+end
+
+##TODO: start the rerver
 
 rightscale_marker :end

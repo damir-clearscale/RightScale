@@ -32,4 +32,11 @@ attribute "identity_server/repo_comp",
   :display_name => "Components of repository with WSO2 Identity Server package",
   :required     => "optional"
 
-
+attribute "identity_server/carbon/hostname",
+  :description  => "Host name or IP address of the machine hosting this server, e.g. www.wso2.org, 192.168.1.10.
+    This is will become part of the End Point Reference of the services deployed on this server instance.",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Host name or IP address of the machine hosting this server.",
+  :required     => "optional",
+  :default      => "localhost"
