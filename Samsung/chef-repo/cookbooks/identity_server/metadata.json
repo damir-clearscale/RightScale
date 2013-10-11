@@ -39,7 +39,7 @@
   "groupings": {
   },
   "recipes": {
-    "cassandra::default": "Install and configure WSO2 Identity Server"
+    "identity_server::default": "Install and configure WSO2 Identity Server"
   },
   "version": "1.0.0"
 }

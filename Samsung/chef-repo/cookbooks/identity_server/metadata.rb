@@ -7,7 +7,7 @@ version          "1.0.0"
 
 depends "rightscale"
 
-recipe "cassandra::default", "Install and configure WSO2 Identity Server"
+recipe "identity_server::default", "Install and configure WSO2 Identity Server"
 
 attribute "identity_server/repo_path",
   :description  => "Path to repository with WSO2 Identity Server package",
