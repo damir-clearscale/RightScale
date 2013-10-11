@@ -17,7 +17,7 @@ apt_repository "cassandra" do
   components ["main"]
   deb_src true
   keyserver 'pgp.mit.edu'
-  key 'F758CE318D77295D'
+  key '4BD736A82B5C1B00'
 end
 
 apt_repository "wso2" do
