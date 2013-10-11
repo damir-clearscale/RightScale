@@ -9,15 +9,16 @@
 
 rightscale_marker :begin
 
-file "/etc/apt/sources.list.d/samsung.list" do
-  source "samsung.list"
-  mode "644"
-  owner "root"
-  group "root"
-end
 
-execute "update repo list" do
-  command "apt-get update"
+include_recipe "apt"
+
+apt_repository "wso2" do
+  uri node[:identity_server][:repo_path]
+  distribution node[:identity_server][:repo_dist]
+  components node[:identity_server][:repo_comp]
+  deb_src false
+#  keyserver 'keyserver.ubuntu.com'
+#  key '4F4EA0AAE5267A6C'
 end
 
 package "wso2is" do

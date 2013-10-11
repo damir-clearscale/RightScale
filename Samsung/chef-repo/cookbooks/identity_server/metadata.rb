@@ -15,5 +15,21 @@ attribute "identity_server/repo_path",
   :type         => "string",
   :display_name => "Path to repository with WSO2 Identity Server package",
   :required     => "recommended",
-  :default      => "http://54.215.135.186 debian/"
+  :default      => "http://54.215.135.186"
+
+attribute "identity_server/repo_dist",
+  :description  => "Path to repository with WSO2 Identity Server package",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Path to repository with WSO2 Identity Server package",
+  :required     => "recommended",
+  :default      => "debian/"
+
+attribute "identity_server/repo_comp",
+  :description  => "Path to repository with WSO2 Identity Server package",
+  :recipes      => ["identity_server::default"],
+  :type         => "array",
+  :display_name => "Path to repository with WSO2 Identity Server package",
+  :required     => "optional"
+
 
