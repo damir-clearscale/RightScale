@@ -7,4 +7,4 @@
 # All rights reserved - Do Not Redistribute
 #
 
-override[:identity_server][:deps] = ["ant"]
+override[:identity_server][:deps] = ["default-jre", "ant"]

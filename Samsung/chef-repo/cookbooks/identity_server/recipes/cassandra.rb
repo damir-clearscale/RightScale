@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: identity_server
-# Recipe:: default
+# Recipe:: cassandra
 #
 # Copyright 2013, RightScale
 #
@@ -10,6 +10,15 @@
 rightscale_marker :begin
 
 include_recipe "apt"
+
+apt_repository "cassandra" do
+  uri "http://www.apache.org/dist/cassandra/debian"
+  distribution "12x"
+  components ["main"]
+  deb_src true
+  keyserver 'pgp.mit.edu'
+  key 'F758CE318D77295D'
+end
 
 apt_repository "wso2" do
   uri node[:identity_server][:repo_path]
@@ -32,6 +41,11 @@ packages.each do |p|
     ignore_failure true
   end
 end
+
+package "cassandra" do
+  action :install
+end
+
 
 apt_package "wso2is" do
   action :install
