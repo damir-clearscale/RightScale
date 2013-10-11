@@ -21,8 +21,9 @@ apt_repository "wso2" do
 #  key '4F4EA0AAE5267A6C'
 end
 
-package "wso2is" do
+apt_package "wso2is" do
   action :install
+  options "--force-yes"
 end
 
 rightscale_marker :end
