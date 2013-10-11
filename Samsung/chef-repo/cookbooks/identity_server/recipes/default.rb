@@ -21,6 +21,16 @@ apt_repository "wso2" do
 #  key '4F4EA0AAE5267A6C'
 end
 
+packages = node[:identity_server][:deps]
+packages.each do |p|
+  package p do
+    action :install
+    ignore_failure true
+  end
+end
+
+
+
 apt_package "wso2is" do
   action :install
   options "--force-yes"
