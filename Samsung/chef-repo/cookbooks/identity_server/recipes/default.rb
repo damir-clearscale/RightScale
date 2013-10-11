@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-rightsacle_marker :begin
+rightscale_marker :begin
 
 file "/etc/apt/sources.list.d/samsung.list" do
   source "samsung.list"
