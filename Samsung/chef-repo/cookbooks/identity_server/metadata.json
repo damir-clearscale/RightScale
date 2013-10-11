@@ -36,12 +36,12 @@
       "calculated": false
     },
     "identity_server/repo_dist": {
-      "description": "Path to repository with WSO2 Identity Server package",
+      "description": "Distribution in repository with WSO2 Identity Server package",
       "recipes": [
         "identity_server::default"
       ],
       "type": "string",
-      "display_name": "Path to repository with WSO2 Identity Server package",
+      "display_name": "Distribution in repository with WSO2 Identity Server package",
       "required": "recommended",
       "default": "debian/",
       "choice": [
@@ -50,12 +50,12 @@
       "calculated": false
     },
     "identity_server/repo_comp": {
-      "description": "Path to repository with WSO2 Identity Server package",
+      "description": "Components of repository with WSO2 Identity Server package",
       "recipes": [
         "identity_server::default"
       ],
       "type": "array",
-      "display_name": "Path to repository with WSO2 Identity Server package",
+      "display_name": "Components of repository with WSO2 Identity Server package",
       "required": "optional",
       "choice": [
 
