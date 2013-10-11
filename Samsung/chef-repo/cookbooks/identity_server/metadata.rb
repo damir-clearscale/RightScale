@@ -11,7 +11,7 @@ recipe "identity_server::default", "Install and configure WSO2 Identity Server"
 
 attribute "identity_server/repo_path",
   :description  => "Path to repository with WSO2 Identity Server package",
-  :recipes      => ["identity_server"],
+  :recipes      => ["identity_server::default"],
   :type         => "string",
   :display_name => "Path to repository with WSO2 Identity Server package",
   :required     => "recommended",
