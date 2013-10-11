@@ -80,7 +80,8 @@
   "groupings": {
   },
   "recipes": {
-    "identity_server::default": "Install and configure WSO2 Identity Server"
+    "identity_server::default": "Install and configure WSO2 Identity Server",
+    "identity_server::cassandra": "Install Apache Cassandra from package"
   },
   "version": "1.0.0"
 }

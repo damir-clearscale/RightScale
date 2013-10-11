@@ -8,6 +8,7 @@ version          "1.0.0"
 depends "rightscale"
 
 recipe "identity_server::default", "Install and configure WSO2 Identity Server"
+recipe "identity_server::cassandra", "Install Apache Cassandra from package"
 
 attribute "identity_server/repo_path",
   :description  => "Path to repository with WSO2 Identity Server package",
