@@ -63,5 +63,4 @@ attribute "identity_server/cassandra/keyspace",
   :recipes      => ["identity_server::default"],
   :type         => "string",
   :display_name => "Keyspace in Cassandra DB for CassandraUserStoreManager",
-  :required     => "required",
-  :default      => "User_KS3"
+  :required     => "required"
