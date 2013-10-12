@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
   ~ Copyright WSO2, Inc. (http://wso2.com)
   ~
@@ -26,7 +27,9 @@
             <EveryOneRoleName>everyone</EveryOneRoleName> <!-- By default users in this role sees the registry root -->
             <Property name="dataSource">jdbc/WSO2CarbonDB</Property>
         </Configuration>
-	<!-- Following is the default user store manager. This user store manager is based on embedded-apacheds LDAP. It reads/writes users and roles into the 		     default apacheds LDAP user store. Descriptions about each of the following properties can be found in user management documentation of the 	 respective product. In case if user core cache domain is needed to identify uniquely set property <Property name="UserCoreCacheIdentifier">domain</Property>
+	<!-- Following is the default user store manager. This user store manager is based on embedded-apacheds LDAP. It reads/writes users and roles into the
+	     default apacheds LDAP user store. Descriptions about each of the following properties can be found in user management documentation of the
+	     respective product. In case if user core cache domain is needed to identify uniquely set property <Property name="UserCoreCacheIdentifier">domain</Property>
 	     Note: Do not comment within UserStoreManager tags. Cause, specific tag names are used as tokens when building configurations for products. -->
 	<!--UserStoreManager class="org.wso2.carbon.user.core.ldap.ReadWriteLDAPUserStoreManager">
             <Property name="TenantManager">org.wso2.carbon.user.core.tenant.CommonHybridLDAPTenantManager</Property>
@@ -69,8 +72,11 @@
             <Property name="SCIMEnabled">false</Property>
         </UserStoreManager-->
 
-	<!-- Following is the configuration for internal JDBC user store. This user store manager is based on JDBC. In case if application needs to manage 		     passwords externally set property <Property name="PasswordsExternallyManaged">true</Property>. In case if user core cache domain is needed to 			identify uniquely set property <Property name="UserCoreCacheIdentifier">domain</Property>. Furthermore properties, IsEmailUserName and 	     			DomainCalculation are readonly properties. 
-	     Note: Do not comment within UserStoreManager tags. Cause, specific tag names are used as tokens when building configurations for products. -->	
+	<!-- Following is the configuration for internal JDBC user store. This user store manager is based on JDBC. In case if application needs to manage
+	     passwords externally set property <Property name="PasswordsExternallyManaged">true</Property>. In case if user core cache domain is needed to
+	     identify uniquely set property <Property name="UserCoreCacheIdentifier">domain</Property>. Furthermore properties, IsEmailUserName and
+	     DomainCalculation are readonly properties.
+	     Note: Do not comment within UserStoreManager tags. Cause, specific tag names are used as tokens when building configurations for products. -->
         <!--UserStoreManager class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager">
             <Property name="TenantManager">org.wso2.carbon.user.core.tenant.JDBCTenantManager</Property>
 	    <Property name="ReadOnly">false</Property>
@@ -287,10 +293,10 @@
 		And if this CassandraUserStoreManager is used as the primary user store with multi tenants, it should also implement a 
 		compatible TenantManager and set property <Property name="TenantManager">FULL_QUALIFIED_TENANT_MANAGER_CLASS_NAME</Property>.
 	-->
-	<!--UserStoreManager class="org.wso2.carbon.user.cassandra.CassandraUserStoreManager">
-	    <Property name="Keyspace">User_KS3</Property>
-	    <Property name="Host">localhost</Property>
-	    <Property name="Port">9160</Property>
+	<UserStoreManager class="org.wso2.carbon.user.cassandra.CassandraUserStoreManager">
+	    <Property name="Keyspace"><%= node[:identity_server][:cassandra][:keyspace] %></Property>
+	    <Property name="Host"><%= node[:identity_server][:cassandra][:host] %></Property>
+	    <Property name="Port"><%= node[:identity_server][:cassandra][:port] %></Property>
 	    <Property name="PasswordDigest">SHA-256</Property>
 	    <Property name="StoreSaltedPassword">true</Property>
 	    <Property name="AuthenticateWithAnyCredential">true</Property>
@@ -302,7 +308,7 @@
 		    <Credential type="Device">org.wso2.carbon.user.cassandra.credentialtypes.DeviceCredential</Credential>
 		    <Credential type="External">org.wso2.carbon.user.cassandra.credentialtypes.ExternalProviderCredential</Credential>
 	        </MultipleCredentials>
-	</UserStoreManager-->
+	</UserStoreManager>
 
         <AuthorizationManager
             class="org.wso2.carbon.user.core.authorization.JDBCAuthorizationManager">

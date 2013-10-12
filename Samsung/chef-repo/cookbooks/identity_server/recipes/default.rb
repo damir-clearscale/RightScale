@@ -43,13 +43,19 @@ template "/opt/wso2is/repository/conf/carbon.xml" do
   mode 00644
   action :create
   #notifies :restart, "service name"
-  ignore_failure true
 end
+template "/opt/wso2is/repository/conf/user-mgt.xml" do
+  source "user-mgt.xml.erb"
+  mode 00644
+  action :create
+  #notifies :restart, "service name"
+end
+
 
 
 # Install features.
 
-features = node[:identity_server][:features][:list]
+features = node[:identity_server][:carbon][:features]
 features.each do |f|
   log "Install #{f} feature"
   # Prepare a directory
@@ -61,7 +67,7 @@ features.each do |f|
   end
   # download jar
   remote_file "/tmp/#{f}.jar" do
-    source "#{node[:identity_server][:features][:repository]}/features/#{f}.jar"
+    source "#{node[:identity_server][:carbon][:repository]}/features/#{f}.jar"
     action :create
   end
   # unzip jar
@@ -69,6 +75,17 @@ features.each do |f|
     code "cd /opt/wso2is/repository/components/features/#{f} && jar -xvf /tmp/#{f}.jar"
   end
 end
+
+plugins = node[:identity_server][:carbon][:]
+plugins.each do |j|
+  log "Install #{j} plugin"
+  # download jar
+  remote_file "/opt/wso2is/repository/components/plugins/#{p}.jar" do
+    source "#{node[:identity_server][:carbon][:repository]}/plugins/#{p}.jar"
+    action :create
+  end
+end
+
 
 ##TODO: start the rerver
 

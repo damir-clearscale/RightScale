@@ -41,3 +41,27 @@ attribute "identity_server/carbon/hostname",
   :display_name => "Host name or IP address of the machine hosting this server.",
   :required     => "optional",
   :default      => "localhost"
+
+attribute "identity_server/cassandra/host",
+  :description  => "Host name or IP address of Cassandra DB for CassandraUserStoreManager",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Host name or IP address of Cassandra DB for CassandraUserStoreManager",
+  :required     => "optional",
+  :default      => "localhost"
+
+attribute "identity_server/cassandra/port",
+  :description  => "Port of Cassandra DB for CassandraUserStoreManager",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Port of Cassandra DB for CassandraUserStoreManager",
+  :required     => "optional",
+  :default      => "9160"
+
+attribute "identity_server/cassandra/keyspace",
+  :description  => "Keyspace in Cassandra DB for CassandraUserStoreManager",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Keyspace in Cassandra DB for CassandraUserStoreManager",
+  :required     => "required",
+  :default      => "User_KS3"
