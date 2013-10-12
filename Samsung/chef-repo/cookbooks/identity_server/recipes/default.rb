@@ -76,9 +76,9 @@ features.each do |f|
   end
 end
 
-plugins = node[:identity_server][:carbon][:]
-plugins.each do |j|
-  log "Install #{j} plugin"
+plugins = node[:identity_server][:carbon][:plugins]
+plugins.each do |p|
+  log "Install #{p} plugin"
   # download jar
   remote_file "/opt/wso2is/repository/components/plugins/#{p}.jar" do
     source "#{node[:identity_server][:carbon][:repository]}/plugins/#{p}.jar"
