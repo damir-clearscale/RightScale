@@ -46,6 +46,30 @@ template "/opt/wso2is/repository/conf/carbon.xml" do
   ignore_failure true
 end
 
+
+# Install features.
+
+features = node[:identity_server][:features][:list]
+features.each do |f|
+  log "Install #{f} feature"
+  # Prepare a directory
+  directory "/opt/wso2is/repository/components/features/#{f}" do
+    owner "root"
+    group "root"
+    mode 00755
+    action :create
+  end
+  # download jar
+  remote_file "/tmp/#{f}.jar" do
+    source "#{node[:identity_server][:features][:repository]}/features/#{f}.jar"
+    action :create
+  end
+  # unzip jar
+  bash "unpack #{f} feature" do
+    code "cd /opt/wso2is/repository/components/features/#{f} && jar -xvf /tmp/#{f}.jar"
+  end
+end
+
 ##TODO: start the rerver
 
 rightscale_marker :end

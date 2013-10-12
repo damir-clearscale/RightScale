@@ -13,7 +13,7 @@ include_recipe "apt"
 
 apt_repository "cassandra" do
   uri "http://www.apache.org/dist/cassandra/debian"
-  distribution "12x"
+  distribution "20x"
   components ["main"]
   deb_src true
   keyserver 'pgp.mit.edu'
