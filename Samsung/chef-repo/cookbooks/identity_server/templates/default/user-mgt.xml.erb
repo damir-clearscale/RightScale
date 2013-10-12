@@ -243,7 +243,7 @@
             <Property name="TenantManager">org.wso2.carbon.user.core.tenant.CommonHybridLDAPTenantManager</Property>
             <Property name="defaultRealmName">WSO2.ORG</Property>
             <Property name="kdcEnabled">false</Property>
-            <Property name="Disabled">false</Property>                                   
+            <Property name="Disabled">false</Property>
             <Property name="ConnectionURL">ldap://localhost:${Ports.EmbeddedLDAP.LDAPServerPort}</Property>
             <Property name="ConnectionName">uid=admin,ou=system</Property>
             <Property name="ConnectionPassword">admin</Property>
@@ -253,14 +253,17 @@
             <Property name="UserSearchBase">ou=Users,dc=wso2,dc=org</Property>
             <Property name="UserNameSearchFilter">(&amp;(objectClass=person)(uid=?))</Property>
             <Property name="UserNameAttribute">uid</Property>
-            <Property name="PasswordJavaScriptRegEx">^[\S]{5,30}$</Property>
+            <Property name="PasswordJavaScriptRegEx">^[\\S]{5,30}$</Property>
 	    <Property name="ServicePasswordJavaRegEx">^[\\S]{5,30}$</Property>
 	    <Property name="ServiceNameJavaRegEx">^[\\S]{2,30}/[\\S]{2,30}$</Property>
-            <Property name="UsernameJavaScriptRegEx">^[\S]{3,30}$</Property>
+            <Property name="UsernameJavaScriptRegEx">^[\\S]{3,30}$</Property>
             <Property name="UsernameJavaRegEx">[a-zA-Z0-9._-|//]{3,30}$</Property>
-            <Property name="RolenameJavaScriptRegEx">^[\S]{3,30}$</Property>
+            <Property name="RolenameJavaScriptRegEx">^[\\S]{3,30}$</Property>
             <Property name="RolenameJavaRegEx">[a-zA-Z0-9._-|//]{3,30}$</Property>
 	    <Property name="ReadGroups">true</Property>
+	    <Property name="WriteGroups">true</Property>
+	    <Property name="ReadLDAPGroups">true</Property>
+	    <Property name="WriteLDAPGroups">true</Property>
 	    <Property name="WriteGroups">true</Property>
 	    <Property name="EmptyRolesAllowed">true</Property>
             <Property name="GroupSearchBase">ou=Groups,dc=wso2,dc=org</Property>
@@ -284,6 +287,8 @@
             <Property name="MaxRoleNameListLength">100</Property>
             <Property name="MaxUserNameListLength">100</Property>
         </UserStoreManager>
+
+
 
 	<!--	Following configuration is for the CassandraUserStoreManager. The CassandraUserStoreManager is capable of using a Cassandra
 		database as a user store. This user manager supports multiple credentials for authentication. Credential types can be defined

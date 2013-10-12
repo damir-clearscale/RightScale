@@ -273,7 +273,7 @@
 	<!--WARNING-Use With Care! Uncommenting bellow parameter would expose all AdminServices in HTTP transport.
 	With HTTP transport your credentials and data routed in public channels are vulnerable for sniffing attacks. 
 	Use bellow parameter ONLY if your communication channels are confirmed to be secured by other means -->
-        <!--HttpAdminServices>*</HttpAdminServices-->
+        <HttpAdminServices>*</HttpAdminServices>
 
     </Axis2Config>
 
@@ -291,11 +291,11 @@
             <Description>Default User Role</Description>
         </Role>
     </ServiceUserRoles>
-    
-    <!-- 
-      Enable following config to allow Emails as usernames. 	
-    -->	    	
-    <!--EnableEmailUserName>true</EnableEmailUserName-->	
+
+    <!--
+      Enable following config to allow Emails as usernames.
+    -->
+    <EnableEmailUserName>true</EnableEmailUserName>
 
     <!--
       Security configurations
