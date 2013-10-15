@@ -49,9 +49,15 @@ test -f /etc/default/${NAME} && . /etc/default/${NAME}
 
 case "$1" in
 
-  start|stop|restart)
+  start|restart)
     log_daemon_msg "$1 WSO2 IS Server" "wso2is"
     ${DAEMON} "$1"
+  ;;
+
+  stop)
+    log_daemon_msg "$1 WSO2 IS Server" "wso2is"
+    ${DAEMON} "$1"
+    rm /opt/wso2is/wso2carbon.pid
   ;;
 
   version)
