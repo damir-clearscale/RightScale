@@ -1,0 +1,79 @@
+#!/bin/sh
+
+# WSO2 IS server and library
+# Copyright (C) 2008 Brian Aker, Eric Day
+# All rights reserved.
+#
+# Use and distribution licensed under the BSD license.  See
+# the COPYING file in this directory for full text.
+
+### BEGIN INIT INFO
+# Provides:          wso2is
+# Required-Start:    $network $remote_fs $syslog
+# Required-Stop:     $network $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable WSO2 IS job server
+### END INIT INFO
+
+prefix=/opt/wso2is
+exec_prefix=${prefix}
+NAME=wso2is
+DAEMON=${exec_prefix}/bin/wso2server.sh
+
+test -x ${DAEMON} || exit 0
+
+. /lib/lsb/init-functions
+
+test -f /etc/default/${NAME} && . /etc/default/${NAME}
+
+#        -DhttpPort=<httpPort>           Overrides the HTTP port defined in the mgt-transports.xml file
+#        -DhttpsPort=<httpsPort>         Overrides the HTTPS port defined in the mgt-transports.xml file
+#        -DosgiConsole=[port]            Start Carbon with Equinox OSGi console. 
+#                                        If the optional 'port' parameter is provided, a telnet port will be opened
+#        -DosgiDebugOptions=[options-file]
+#                                        Start Carbon with OSGi debugging enabled. 
+#                                        If the optional 'options-file is provided, the OSGi debug options will be loaded from it.
+#        -Dsetup                         Clean the Registry & other configuration, recreate DB, re-populate the configuration, and start Carbon
+#        -Dwso2.transports.xml=<transportXmlPath>        Location of the mgt-transports.xml file.
+#        -DserverRoles=<roles>           A comma separated list of roles. Used in deploying cApps
+#        -Dcarbon.use.registry.repo      Use registry based repository.
+#        -DdisableHttpLog                Disable HTTP access logging
+#        -DapplyPatches                  Use this system property when there are patches to be applied/reverted to/from the system. 
+#                                        Drop the patches to $CARBON_HOME/repository/componenets/patches directory and restart the system with this property. 
+#                                        When you want to revert a patch, delete it from the patches directory and restart the system with this property
+#        -DworkerNode                    Set this system property when starting as a worker node.
+#                                        This is required in clustered setups with master and worker nodes.
+#
+
+case "$1" in
+
+  start|stop|restart)
+    log_daemon_msg "$1 WSO2 IS Server" "wso2is"
+    ${DAEMON} "$1"
+  ;;
+
+  version)
+    ${DAEMON} "$1"
+  ;;
+
+  setup)
+    log_daemon_msg "$1 and start WSO2 IS Server" "wso2is"
+    ${DAEMON} --start -Dsetup
+
+  ;;
+
+  status)
+    status_of_proc -p /opt/wso2is/wso2carbon.pid $DAEMON $NAME && exit 0 || exit 
+  ;;
+
+  restart|force-reload)
+    ${DAEMON} "$1"
+  ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart|status|version|setup}"
+  ;;
+
+esac

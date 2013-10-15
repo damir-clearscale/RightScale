@@ -87,6 +87,25 @@ plugins.each do |p|
 end
 
 
+#TODO fix
+template "/etc/init.d/wso2is" do
+  source "init.d_wso2is.erb"
+  owner "root"
+  mode 00755
+end
+
+#template "/etc/default/wso2is" do
+#  source "wso2is.erb"
+#  owner "root"
+#  mode 00644
+#  action :create
+#  notifies :restart, "service[wso2is]"
+#end
+    
+service "wso2is" do
+  action [ :enable, :start ]
+end
+
 ##TODO: start the rerver
 
 rightscale_marker :end
