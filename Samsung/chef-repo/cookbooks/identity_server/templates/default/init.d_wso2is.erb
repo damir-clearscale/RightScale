@@ -57,7 +57,7 @@ case "$1" in
   stop)
     log_daemon_msg "$1 WSO2 IS Server" "wso2is"
     ${DAEMON} "$1"
-    rm /opt/wso2is/wso2carbon.pid
+    rm -f /opt/wso2is/wso2carbon.pid
   ;;
 
   version)
