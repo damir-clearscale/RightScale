@@ -66,8 +66,8 @@ features.each do |f|
     action :create
   end
   # download jar
-  remote_file "/tmp/#{f}.jar" do
-    source "#{node[:identity_server][:carbon][:repository]}/features/#{f}.jar"
+  cookbook_file "/tmp/#{f}.jar" do
+    source "#{f}.jar"
     action :create
   end
   # unzip jar
@@ -80,8 +80,24 @@ plugins = node[:identity_server][:carbon][:plugins]
 plugins.each do |p|
   log "Install #{p} plugin"
   # download jar
-  remote_file "/opt/wso2is/repository/components/plugins/#{p}.jar" do
-    source "#{node[:identity_server][:carbon][:repository]}/plugins/#{p}.jar"
+  cookbook_file "/opt/wso2is/repository/components/plugins/#{p}.jar" do
+    source "#{p}.jar"
+    action :create
+  end
+end
+
+template "/opt/wso2is/repository/conf/datasources/master-datasources.xml" do
+  source "master-datasources.xml.erb"
+  mode 00644
+  action :create
+  #notifies :restart, "service name"
+end
+libs = node[:identity_server][:carbon][:libs]
+libs.each do |l|
+  log "Install #{l} library"
+  # download jar
+  cookbook_file "/opt/wso2is/repository/components/lib/#{l}.jar" do
+    source "#{l}.jar"
     action :create
   end
 end
@@ -101,7 +117,7 @@ end
 #  action :create
 #  notifies :restart, "service[wso2is]"
 #end
-    
+
 service "wso2is" do
   action [ :enable, :start ]
 end
