@@ -15,11 +15,11 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-<% mhost = node[:identity_server][:mysql][:host] =~ /[0-9a-zA-Z]+/ ? node[:identity_server][:mysql][:host] : ""  %>
-<% mport = node[:identity_server][:mysql][:port] =~ /[0-9]+/ ? node[:identity_server][:mysql][:port] : "" %>
-<% mdb = node[:identity_server][:mysql][:dbname] =~ /[0-9a-zA-Z]+/ ? node[:identity_server][:mysql][:dbname] : "" %>
-<% muser = node[:identity_server][:mysql][:username] =~ /[0-9a-zA-Z]+/ ? node[:identity_server][:mysql][:username] : "" %>
-<% if mhost.strip.length>0 && mport.strip.length>0 && mdb.strip.length>0 && muser.strip.length>0 then %>
+<% mhost = node[:identity_server][:mysql][:host] %>
+<% mport = node[:identity_server][:mysql][:port] %>
+<% mdb = node[:identity_server][:mysql][:dbname] %>
+<% muser = node[:identity_server][:mysql][:username] %>
+<% if (mhost.strip.length>0 && mport.strip.length>0 && mdb.strip.length>0 && muser.strip.length>0) then %>
                     <url>jdbc:mysql://<%= mhost %>:<%= mport %>/<%= mdb %>?DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000</url>
                     <username><%= node[:identity_server][:mysql][:username] %></username>
                     <password><%= node[:identity_server][:mysql][:password] %></password>
