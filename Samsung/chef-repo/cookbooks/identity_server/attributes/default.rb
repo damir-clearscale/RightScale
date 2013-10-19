@@ -13,4 +13,4 @@ override[:identity_server][:carbon][:features] = ["org.wso2.carbon.cassandra-jdb
 override[:identity_server][:carbon][:plugins] = ["cassandra-jdbc_1.1.1.wso2v1"]
 override[:identity_server][:carbon][:libs] = ["mysql-connector-java-5.1.16"]
 
-default[:identity_server][:mysql] = "" # fix NPE
+default[:identity_server][:mysql] = [""] # fix NPE
