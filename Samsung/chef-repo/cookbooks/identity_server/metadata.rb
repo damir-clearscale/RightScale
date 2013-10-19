@@ -42,6 +42,44 @@ attribute "identity_server/carbon/hostname",
   :required     => "optional",
   :default      => "localhost"
 
+
+attribute "identity_server/mysql/host",
+  :description  => "Host name or IP address of MySQL DB for central registry cluster database",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Host name or IP address of MySQL DB for central registry cluster database",
+  :required     => "optional",
+  :default      => "localhost"
+
+attribute "identity_server/mysql/port",
+  :description  => "Port of MySQL DB for central registry cluster database",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Port of MySQL DB for central registry cluster database",
+  :required     => "optional",
+  :default      => "3306"
+
+attribute "identity_server/mysql/dbname",
+  :description  => "Database name in MySQL for central registry cluster database",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Database name in MySQL for central registry cluster database",
+  :required     => "optional"
+
+attribute "identity_server/mysql/username",
+  :description  => "Username in MySQL for central registry cluster database",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Username in MySQL for central registry cluster database",
+  :required     => "optional"
+
+attribute "identity_server/mysql/password",
+  :description  => "Password for central registry cluster database in MySQL",
+  :recipes      => ["identity_server::default"],
+  :type         => "string",
+  :display_name => "Password for central registry cluster database in MySQL",
+  :required     => "optional"
+
 attribute "identity_server/cassandra/host",
   :description  => "Host name or IP address of Cassandra DB for CassandraUserStoreManager",
   :recipes      => ["identity_server::default"],
