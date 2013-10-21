@@ -77,7 +77,7 @@
         <password>password</password>
     </remoteInstance-->
 
-<% if (remotehost.strip.length>0 && remoteport.strip.length>0) then %>
+<% if (@remotehost.strip.length>0 && @remoteport.strip.length>0) then %>
     <remoteInstance url="https://<%= @remotehost %>:<%= @remoteport %>/registry">
         <id>instanceid</id>
         <dbConfig>wso2registry</dbConfig>
