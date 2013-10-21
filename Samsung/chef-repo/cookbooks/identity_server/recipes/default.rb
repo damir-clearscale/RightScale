@@ -110,7 +110,7 @@ r = ruby_block "find node 1" do
   block do
     node[:server_collection]["node_1"].each do |id, tags|
       node1_ip_tag = tags.detect { |u| u =~ /wso2is:listen_ip/ }
-      node1_ip = master_ip_tag.split(/=/, 2).last.chomp
+      node1_ip = node1_ip_tag.split(/=/, 2).last.chomp
       Chef::Log.info "Node 1 IP: #{node1_ip}"
     end
   end
