@@ -77,19 +77,23 @@
         <password>password</password>
     </remoteInstance-->
 
-    <!--remoteInstance url="https://localhost:9443/registry">
+<% if (remotehost.strip.length>0 && remoteport.strip.length>0) then %>
+    <remoteInstance url="https://<%= @remotehost %>:<%= @remoteport %>/registry">
         <id>instanceid</id>
         <dbConfig>wso2registry</dbConfig>
         <readOnly>false</readOnly>
         <enableCache>true</enableCache>
         <registryRoot>/</registryRoot>
-    </remoteInstance-->
-
-    <!--mount path="/_system/config" overwrite="true|false|virtual">
+    </remoteInstance>
+    <mount path="/_system/config" overwrite="true">
         <instanceId>instanceid</instanceId>
         <targetPath>/_system/nodes</targetPath>
-    </mount-->
-
+    </mount>
+    <mount path="/_system/governance" overwrite="true">
+        <instanceId>instanceid</instanceId>
+        <targetPath>/_system/governance</targetPath>
+   </mount>
+<% end %>
 
     <versionResourcesOnChange>true</versionResourcesOnChange>
 

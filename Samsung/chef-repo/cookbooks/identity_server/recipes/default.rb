@@ -86,12 +86,6 @@ plugins.each do |p|
   end
 end
 
-template "/opt/wso2is/repository/conf/datasources/master-datasources.xml" do
-  source "master-datasources.xml.erb"
-  mode 00644
-  action :create
-  #notifies :restart, "service name"
-end
 libs = node[:identity_server][:carbon][:libs]
 libs.each do |l|
   log "Install #{l} library"
@@ -103,7 +97,61 @@ libs.each do |l|
 end
 
 
-#TODO fix
+
+# Obtain information about First node of the cluster by querying for its tags: http://docs.wso2.org/display/Cluster/Clustering+Identity+Server
+r = rightscale_server_collection "node_1" do
+  tags "wso2is:node=1"
+  action :nothing
+end
+r.run_action(:load)
+
+node1_ip = ""
+r = ruby_block "find node 1" do
+  block do
+    node[:server_collection]["node_1"].each do |id, tags|
+      node1_ip_tag = tags.detect { |u| u =~ /wso2is:listen_ip/ }
+      node1_ip = master_ip_tag.split(/=/, 2).last.chomp
+      Chef::Log.info "Node 1 IP: #{node1_ip}"
+    end
+  end
+end
+r.run_action(:create)
+
+# Is node 1 found? Are we not node 1?
+if node1_ip.strip.length>0 && node1_ip!=node[:identity_server][:ip] then
+  # yes and yes, and following is a second node
+  template "/opt/wso2is/repository/conf/registry.xml" do
+    source "registry.xml.erb"
+    mode 00644
+    action :create
+    variables(
+      :remotehost => node1_ip,
+      :remoteport => "9443" )
+    #notifies :restart, "wso2is"
+  end
+
+  right_link_tag "wso2is:node=2"
+else
+  # no, lets configure the first node
+  template "/opt/wso2is/repository/conf/datasources/master-datasources.xml" do
+    source "master-datasources.xml.erb"
+    mode 00644
+    action :create
+    #notifies :restart, "wso2is"
+  end
+
+  template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
+    source "axis2.xml.erb"
+    mode 00644
+    action :create
+    #notifies :restart, "wso2is"
+  end
+
+  right_link_tag "wso2is:node=1"
+end
+right_link_tag "wso2is:listen_ip=#{node[:identity_server][:ip]}"
+
+
 template "/etc/init.d/wso2is" do
   source "init.d_wso2is.erb"
   owner "root"
@@ -121,7 +169,5 @@ end
 service "wso2is" do
   action [ :enable, :start ]
 end
-
-##TODO: start the rerver
 
 rightscale_marker :end

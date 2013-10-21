@@ -18,3 +18,9 @@ default[:identity_server][:mysql][:port] = ""
 default[:identity_server][:mysql][:dbname] = ""
 default[:identity_server][:mysql][:username] = ""
 default[:identity_server][:mysql][:password] = ""
+
+if node[:cloud]
+  default[:identity_server][:ip] = node[:cloud][:public_ips][0]
+else
+  default[:identity_server][:ip] = "127.0.0.1"
+end
