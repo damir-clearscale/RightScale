@@ -79,7 +79,8 @@
     "identity_server/mysql/host": {
       "description": "Host name or IP address of MySQL DB for central registry cluster database",
       "recipes": [
-        "identity_server::default"
+        "identity_server::default",
+        "identity_server::dbinit"
       ],
       "type": "string",
       "display_name": "Host name or IP address of MySQL DB for central registry cluster database",
@@ -93,7 +94,8 @@
     "identity_server/mysql/port": {
       "description": "Port of MySQL DB for central registry cluster database",
       "recipes": [
-        "identity_server::default"
+        "identity_server::default",
+        "identity_server::dbinit"
       ],
       "type": "string",
       "display_name": "Port of MySQL DB for central registry cluster database",
@@ -107,7 +109,8 @@
     "identity_server/mysql/dbname": {
       "description": "Database name in MySQL for central registry cluster database",
       "recipes": [
-        "identity_server::default"
+        "identity_server::default",
+        "identity_server::dbinit"
       ],
       "type": "string",
       "display_name": "Database name in MySQL for central registry cluster database",
@@ -120,7 +123,8 @@
     "identity_server/mysql/username": {
       "description": "Username in MySQL for central registry cluster database",
       "recipes": [
-        "identity_server::default"
+        "identity_server::default",
+        "identity_server::dbinit"
       ],
       "type": "string",
       "display_name": "Username in MySQL for central registry cluster database",
@@ -133,7 +137,8 @@
     "identity_server/mysql/password": {
       "description": "Password for central registry cluster database in MySQL",
       "recipes": [
-        "identity_server::default"
+        "identity_server::default",
+        "identity_server::dbinit"
       ],
       "type": "string",
       "display_name": "Password for central registry cluster database in MySQL",
@@ -189,6 +194,7 @@
   },
   "recipes": {
     "identity_server::default": "Install and configure WSO2 Identity Server",
+    "identity_server::dbinit": "Init shared DB",
     "identity_server::cassandra": "Install Apache Cassandra from package"
   },
   "version": "1.0.0"

@@ -133,6 +133,14 @@ if node1_ip.strip.length>0 && node1_ip!=node[:identity_server][:ip] then
   right_link_tag "wso2is:node=2"
 else
   # no, lets configure the first node
+
+  # Do we have node 1?
+  unless node1_ip.strip.length>0 then
+    # no, this this the first time we start the recipe. Lets prepare the DB
+    include_recipe "identity_server::dbinit"
+  end
+
+
   template "/opt/wso2is/repository/conf/datasources/master-datasources.xml" do
     source "master-datasources.xml.erb"
     mode 00644

@@ -8,6 +8,7 @@ version          "1.0.0"
 depends "rightscale"
 
 recipe "identity_server::default", "Install and configure WSO2 Identity Server"
+recipe "identity_server::dbinit", "Init shared DB"
 recipe "identity_server::cassandra", "Install Apache Cassandra from package"
 
 attribute "identity_server/repo_path",
@@ -45,7 +46,7 @@ attribute "identity_server/carbon/hostname",
 
 attribute "identity_server/mysql/host",
   :description  => "Host name or IP address of MySQL DB for central registry cluster database",
-  :recipes      => ["identity_server::default"],
+  :recipes      => ["identity_server::default", "identity_server::dbinit"],
   :type         => "string",
   :display_name => "Host name or IP address of MySQL DB for central registry cluster database",
   :required     => "optional",
@@ -53,7 +54,7 @@ attribute "identity_server/mysql/host",
 
 attribute "identity_server/mysql/port",
   :description  => "Port of MySQL DB for central registry cluster database",
-  :recipes      => ["identity_server::default"],
+  :recipes      => ["identity_server::default", "identity_server::dbinit"],
   :type         => "string",
   :display_name => "Port of MySQL DB for central registry cluster database",
   :required     => "optional",
@@ -61,21 +62,21 @@ attribute "identity_server/mysql/port",
 
 attribute "identity_server/mysql/dbname",
   :description  => "Database name in MySQL for central registry cluster database",
-  :recipes      => ["identity_server::default"],
+  :recipes      => ["identity_server::default", "identity_server::dbinit"],
   :type         => "string",
   :display_name => "Database name in MySQL for central registry cluster database",
   :required     => "optional"
 
 attribute "identity_server/mysql/username",
   :description  => "Username in MySQL for central registry cluster database",
-  :recipes      => ["identity_server::default"],
+  :recipes      => ["identity_server::default", "identity_server::dbinit"],
   :type         => "string",
   :display_name => "Username in MySQL for central registry cluster database",
   :required     => "optional"
 
 attribute "identity_server/mysql/password",
   :description  => "Password for central registry cluster database in MySQL",
-  :recipes      => ["identity_server::default"],
+  :recipes      => ["identity_server::default", "identity_server::dbinit"],
   :type         => "string",
   :display_name => "Password for central registry cluster database in MySQL",
   :required     => "optional"
