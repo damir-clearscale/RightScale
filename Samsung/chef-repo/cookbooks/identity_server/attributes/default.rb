@@ -19,6 +19,10 @@ default[:identity_server][:mysql][:dbname] = ""
 default[:identity_server][:mysql][:username] = ""
 default[:identity_server][:mysql][:password] = ""
 
+default[:identity_server][:cassandra][:host] = ""
+default[:identity_server][:cassandra][:port] = ""
+default[:identity_server][:cassandra][:keyspace] = ""
+
 if node[:cloud]
   default[:identity_server][:ip] = node[:cloud][:private_ips][0]
 else

@@ -24,7 +24,8 @@
     "identity_server/repo_path": {
       "description": "Path to repository with WSO2 Identity Server package",
       "recipes": [
-        "identity_server::default"
+        "identity_server::default",
+        "identity_server::cluster"
       ],
       "type": "string",
       "display_name": "Path to repository with WSO2 Identity Server package",
@@ -38,7 +39,8 @@
     "identity_server/repo_dist": {
       "description": "Distribution in repository with WSO2 Identity Server package",
       "recipes": [
-        "identity_server::default"
+        "identity_server::default",
+        "identity_server::cluster"
       ],
       "type": "string",
       "display_name": "Distribution in repository with WSO2 Identity Server package",
@@ -52,7 +54,8 @@
     "identity_server/repo_comp": {
       "description": "Components of repository with WSO2 Identity Server package",
       "recipes": [
-        "identity_server::default"
+        "identity_server::default",
+        "identity_server::cluster"
       ],
       "type": "array",
       "display_name": "Components of repository with WSO2 Identity Server package",
@@ -65,7 +68,7 @@
     "identity_server/carbon/hostname": {
       "description": "Host name or IP address of the machine hosting this server, e.g. www.wso2.org, 192.168.1.10.\n    This is will become part of the End Point Reference of the services deployed on this server instance.",
       "recipes": [
-        "identity_server::default"
+        "identity_server::cluster"
       ],
       "type": "string",
       "display_name": "Host name or IP address of the machine hosting this server.",
@@ -79,7 +82,7 @@
     "identity_server/mysql/host": {
       "description": "Host name or IP address of MySQL DB for central registry cluster database",
       "recipes": [
-        "identity_server::default",
+        "identity_server::cluster",
         "identity_server::dbinit"
       ],
       "type": "string",
@@ -94,7 +97,7 @@
     "identity_server/mysql/port": {
       "description": "Port of MySQL DB for central registry cluster database",
       "recipes": [
-        "identity_server::default",
+        "identity_server::cluster",
         "identity_server::dbinit"
       ],
       "type": "string",
@@ -109,7 +112,7 @@
     "identity_server/mysql/dbname": {
       "description": "Database name in MySQL for central registry cluster database",
       "recipes": [
-        "identity_server::default",
+        "identity_server::cluster",
         "identity_server::dbinit"
       ],
       "type": "string",
@@ -123,7 +126,7 @@
     "identity_server/mysql/username": {
       "description": "Username in MySQL for central registry cluster database",
       "recipes": [
-        "identity_server::default",
+        "identity_server::cluster",
         "identity_server::dbinit"
       ],
       "type": "string",
@@ -137,7 +140,7 @@
     "identity_server/mysql/password": {
       "description": "Password for central registry cluster database in MySQL",
       "recipes": [
-        "identity_server::default",
+        "identity_server::cluster",
         "identity_server::dbinit"
       ],
       "type": "string",
@@ -151,7 +154,7 @@
     "identity_server/cassandra/host": {
       "description": "Host name or IP address of Cassandra DB for CassandraUserStoreManager",
       "recipes": [
-        "identity_server::default"
+        "identity_server::cluster"
       ],
       "type": "string",
       "display_name": "Host name or IP address of Cassandra DB for CassandraUserStoreManager",
@@ -165,7 +168,7 @@
     "identity_server/cassandra/port": {
       "description": "Port of Cassandra DB for CassandraUserStoreManager",
       "recipes": [
-        "identity_server::default"
+        "identity_server::cluster"
       ],
       "type": "string",
       "display_name": "Port of Cassandra DB for CassandraUserStoreManager",
@@ -179,7 +182,7 @@
     "identity_server/cassandra/keyspace": {
       "description": "Keyspace in Cassandra DB for CassandraUserStoreManager",
       "recipes": [
-        "identity_server::default"
+        "identity_server::cluster"
       ],
       "type": "string",
       "display_name": "Keyspace in Cassandra DB for CassandraUserStoreManager",
@@ -193,7 +196,8 @@
   "groupings": {
   },
   "recipes": {
-    "identity_server::default": "Install and configure WSO2 Identity Server",
+    "identity_server::default": "Install and configure WSO2 Identity Server (standalone)",
+    "identity_server::cluster": "Install and configure WSO2 Identity Cluster",
     "identity_server::dbinit": "Init shared DB",
     "identity_server::cassandra": "Install Apache Cassandra from package"
   },

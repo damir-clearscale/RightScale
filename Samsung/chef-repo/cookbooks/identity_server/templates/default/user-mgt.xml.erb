@@ -298,6 +298,11 @@
 		And if this CassandraUserStoreManager is used as the primary user store with multi tenants, it should also implement a 
 		compatible TenantManager and set property <Property name="TenantManager">FULL_QUALIFIED_TENANT_MANAGER_CLASS_NAME</Property>.
 	-->
+
+<% khost = node[:identity_server][:cassandra][:host] %>
+<% kport = node[:identity_server][:cassandra][:port] %>
+<% kspace = node[:identity_server][:cassandra][:keyspace] %>
+<% if (khost.strip.length>0 && kport.strip.length>0 && kspace.strip.length>0) then %>
 	<UserStoreManager class="org.wso2.carbon.user.cassandra.CassandraUserStoreManager">
 	    <Property name="Keyspace"><%= node[:identity_server][:cassandra][:keyspace] %></Property>
 	    <Property name="Host"><%= node[:identity_server][:cassandra][:host] %></Property>
@@ -320,6 +325,8 @@
             <Property name="AdminRoleManagementPermissions">/permission</Property>
 	    <Property name="AuthorizationCacheEnabled">true</Property>
         </AuthorizationManager>
+<% end %>
+
     </Realm>
 </UserManager>
 
