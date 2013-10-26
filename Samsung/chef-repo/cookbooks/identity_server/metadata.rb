@@ -6,6 +6,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0.0"
 
 depends "rightscale"
+depends "database"
 
 recipe "identity_server::default", "Install and configure WSO2 Identity Server (standalone)"
 recipe "identity_server::cluster", "Install and configure WSO2 Identity Cluster"
