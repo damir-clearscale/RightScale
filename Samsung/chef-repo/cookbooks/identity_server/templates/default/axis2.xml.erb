@@ -637,11 +637,11 @@
            Multicasting would be done using this interface.
         -->
         <!--
-            <parameter name="mcastBindAddress">127.0.0.1</parameter>
+            <parameter name="mcastBindAddress"><%= node[:identity_server][:ip] %></parameter>
         -->
         <!-- The host name or IP address of this member -->
 
-        <parameter name="localMemberHost">127.0.0.1</parameter>
+        <parameter name="localMemberHost"><%= node[:identity_server][:ip] %></parameter>
 
         <!--
             The bind adress of this member. The difference between localMemberHost & localMemberBindAddress
@@ -649,7 +649,7 @@
             is the address to which this member is bound to.
         -->
         <!--
-        <parameter name="localMemberBindAddress">127.0.0.1</parameter>
+        <parameter name="localMemberBindAddress"><%= node[:identity_server][:ip] %></parameter>
         -->
 
         <!--
@@ -681,10 +681,13 @@
            "membershipScheme" above is set to "wka"
         -->
         <members>
+
+<% @node_ips.each do |a| %>
             <member>
-                <hostName>127.0.0.1</hostName>
+                <hostName><%= a %></hostName>
                 <port>4000</port>
             </member>
+<% end %>
         </members>
 
         <!--

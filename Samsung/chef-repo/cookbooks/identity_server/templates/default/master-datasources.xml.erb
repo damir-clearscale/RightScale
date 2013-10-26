@@ -7,29 +7,23 @@
 
     <datasources>
 
-        <datasource>
-            <name>WSO2_CARBON_DB</name>
-            <description>The datasource used for registry and user manager</description>
-            <jndiConfig>
-                <name>jdbc/WSO2CarbonDB</name>
-            </jndiConfig>
-            <definition type="RDBMS">
-                <configuration>
 <% mhost = node[:identity_server][:mysql][:host] %>
 <% mport = node[:identity_server][:mysql][:port] %>
 <% mdb = node[:identity_server][:mysql][:dbname] %>
 <% muser = node[:identity_server][:mysql][:username] %>
 <% if (mhost.strip.length>0 && mport.strip.length>0 && mdb.strip.length>0 && muser.strip.length>0) then %>
-                    <url>jdbc:mysql://<%= mhost %>:<%= mport %>/<%= mdb %>?DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000</url>
-                    <username><%= node[:identity_server][:mysql][:username] %></username>
-                    <password><%= node[:identity_server][:mysql][:password] %></password>
-                    <driverClassName>com.mysql.jdbc.Driver</driverClassName>
-<% else %>
+        <datasource>
+            <name>WSO2_CARBON_LOCAL_DB</name>
+            <description>The datasource used for registry - local</description>
+            <jndiConfig>
+                <name>jdbc/WSO2CarbonLocalDB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
                     <url>jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000</url>
                     <username>wso2carbon</username>
                     <password>wso2carbon</password>
                     <driverClassName>org.h2.Driver</driverClassName>
-<% end %>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
@@ -38,6 +32,51 @@
                 </configuration>
             </definition>
         </datasource>
+
+
+        <datasource>
+            <name>WSO2_CARBON_DB</name>
+            <description>The datasource used for registry and user manager</description>
+            <jndiConfig>
+                <name>jdbc/WSO2CarbonDB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>jdbc:mysql://<%= mhost %>:<%= mport %>/<%= mdb %>?DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000</url>
+                    <username><%= node[:identity_server][:mysql][:username] %></username>
+                    <password><%= node[:identity_server][:mysql][:password] %></password>
+                    <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                    <maxActive>50</maxActive>
+                    <maxWait>60000</maxWait>
+                    <testOnBorrow>true</testOnBorrow>
+                    <validationQuery>SELECT 1</validationQuery>
+                    <validationInterval>30000</validationInterval>
+                </configuration>
+            </definition>
+        </datasource>
+<% else %>
+        <datasource>
+            <name>WSO2_CARBON_DB</name>
+            <description>The datasource used for registry and user manager</description>
+            <jndiConfig>
+                <name>jdbc/WSO2CarbonDB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000</url>
+                    <username>wso2carbon</username>
+                    <password>wso2carbon</password>
+                    <driverClassName>org.h2.Driver</driverClassName>
+                    <maxActive>50</maxActive>
+                    <maxWait>60000</maxWait>
+                    <testOnBorrow>true</testOnBorrow>
+                    <validationQuery>SELECT 1</validationQuery>
+                    <validationInterval>30000</validationInterval>
+                </configuration>
+            </definition>
+        </datasource>
+<% end %>
+
 
         <!-- For an explanation of the properties, see: http://people.apache.org/~fhanik/jdbc-pool/jdbc-pool.html -->
         <!--datasource>

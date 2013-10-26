@@ -26,9 +26,23 @@
     <enableCache>true</enableCache>
     <registryRoot>/</registryRoot>
 
+
+<% mhost = node[:identity_server][:mysql][:host] %>
+<% mport = node[:identity_server][:mysql][:port] %>
+<% mdb = node[:identity_server][:mysql][:dbname] %>
+<% muser = node[:identity_server][:mysql][:username] %>
+<% if (mhost.strip.length>0 && mport.strip.length>0 && mdb.strip.length>0 && muser.strip.length>0) then %>
+    <dbConfig name="wso2registry">
+        <dataSource>jdbc/WSO2CarbonLocalDB</dataSource>
+    </dbConfig>
+    <dbConfig name="wso2registrymount">
+        <dataSource>jdbc/WSO2CarbonDB</dataSource>
+    </dbConfig>
+<% else %>
     <dbConfig name="wso2registry">
         <dataSource>jdbc/WSO2CarbonDB</dataSource>
     </dbConfig>
+<% end %>
 
     <handler class="org.wso2.carbon.identity.entitlement.policy.finder.registry.RegistryPolicyHandler">
         <filter class="org.wso2.carbon.identity.entitlement.policy.finder.registry.RegistryPolicyMediaTypeMatcher">
@@ -77,20 +91,20 @@
         <password>password</password>
     </remoteInstance-->
 
-<% if (@remotehost.strip.length>0 && @remoteport.strip.length>0) then %>
-    <remoteInstance url="https://<%= @remotehost %>:<%= @remoteport %>/registry">
-        <id>instanceid</id>
-        <dbConfig>wso2registry</dbConfig>
+<% if (mhost.strip.length>0 && mport.strip.length>0 && mdb.strip.length>0 && muser.strip.length>0) then %>
+    <remoteInstance url="https://localhost:9443/registry">
+        <id>registrymount</id>
+        <dbConfig>wso2registrymount</dbConfig>
         <readOnly>false</readOnly>
         <enableCache>true</enableCache>
         <registryRoot>/</registryRoot>
     </remoteInstance>
     <mount path="/_system/config" overwrite="true">
-        <instanceId>instanceid</instanceId>
+        <instanceId>registrymount</instanceId>
         <targetPath>/_system/nodes</targetPath>
     </mount>
     <mount path="/_system/governance" overwrite="true">
-        <instanceId>instanceid</instanceId>
+        <instanceId>registrymount</instanceId>
         <targetPath>/_system/governance</targetPath>
    </mount>
 <% end %>

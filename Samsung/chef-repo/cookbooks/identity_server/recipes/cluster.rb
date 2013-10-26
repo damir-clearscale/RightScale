@@ -96,26 +96,35 @@ libs.each do |l|
   end
 end
 
-
-
-# Obtain information about First node of the cluster by querying for its tags: http://docs.wso2.org/display/Cluster/Clustering+Identity+Server
-r = rightscale_server_collection "node_1" do
-  tags "wso2is:node=1"
+# Obtain information about all nodes of the cluster by querying for its tags
+r = rightscale_server_collection "node_X" do
+  tags "wso2is:node=*"
   action :nothing
 end
 r.run_action(:load)
 
 node1_ip = ""
-r = ruby_block "find node 1" do
+node_ips = ["#{node[:identity_server][:ip]}"]
+r = ruby_block "find nodes" do
   block do
-    node[:server_collection]["node_1"].each do |id, tags|
-      node1_ip_tag = tags.detect { |u| u =~ /wso2is:listen_ip/ }
-      node1_ip = node1_ip_tag.split(/=/, 2).last.chomp
-      Chef::Log.info "Node 1 IP: #{node1_ip}"
+    node[:server_collection]["node_X"].each do |id, tags|
+      node_ip_tag = tags.detect { |u| u =~ /wso2is:listen_ip/ }
+      node_ip = node_ip_tag.split(/=/, 2).last.chomp
+      node_ips << node_ip if node_ip!=node[:identity_server][:ip]
+      Chef::Log.info "Node IP: #{node_ip}"
+
+      # Obtain information about First node of the cluster by querying for its tags: http://docs.wso2.org/display/Cluster/Clustering+Identity+Server
+      node_number_tag = tags.detect { |u| u =~ /wso2is:node/ }
+      node_number = node_number_tag.split(/=/, 2).last.chomp
+      if node_number==1 then
+        node1_ip = node_ip
+        Chef::Log.info "Found Node 1 IP: #{node1_ip}"
+      end
     end
   end
 end
 r.run_action(:create)
+
 
 # Is node 1 found? Are we not node 1?
 if node1_ip.strip.length>0 && node1_ip!=node[:identity_server][:ip] then
@@ -124,10 +133,7 @@ if node1_ip.strip.length>0 && node1_ip!=node[:identity_server][:ip] then
     source "registry.xml.erb"
     mode 00644
     action :create
-    variables(
-      :remotehost => node1_ip,
-      :remoteport => "9443" )
-    #notifies :restart, "wso2is"
+    notifies :restart, "wso2is"
   end
 
   right_link_tag "wso2is:node=2"
@@ -140,19 +146,20 @@ else
     include_recipe "identity_server::dbinit"
   end
 
-
   template "/opt/wso2is/repository/conf/datasources/master-datasources.xml" do
     source "master-datasources.xml.erb"
     mode 00644
     action :create
-    #notifies :restart, "wso2is"
+    notifies :restart, "wso2is"
   end
 
   template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
     source "axis2.xml.erb"
     mode 00644
     action :create
-    #notifies :restart, "wso2is"
+    variables(
+      :node_ips => node_ips )
+    notifies :restart, "wso2is"
   end
 
   right_link_tag "wso2is:node=1"
