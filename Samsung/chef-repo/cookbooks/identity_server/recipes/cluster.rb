@@ -153,19 +153,19 @@ else
     notifies :restart, "wso2is"
   end
 
-  template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
-    source "axis2.xml.erb"
-    mode 00644
-    action :create
-    variables(
-      :node_ips => node_ips )
-    notifies :restart, "wso2is"
-  end
 
   right_link_tag "wso2is:node=1"
 end
 right_link_tag "wso2is:listen_ip=#{node[:identity_server][:ip]}"
 
+template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
+  source "axis2.xml.erb"
+  mode 00644
+  action :create
+  variables(
+    :node_ips => node_ips )
+  notifies :restart, "wso2is"
+end
 
 template "/etc/init.d/wso2is" do
   source "init.d_wso2is.erb"
