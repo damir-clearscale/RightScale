@@ -110,13 +110,17 @@ r = ruby_block "find nodes" do
     node[:server_collection]["node_X"].each do |id, tags|
       node_ip_tag = tags.detect { |u| u =~ /wso2is:listen_ip/ }
       node_ip = node_ip_tag.split(/=/, 2).last.chomp
-      node_ips << node_ip if node_ip!=node[:identity_server][:ip]
-      Chef::Log.info "Node IP: #{node_ip}"
+      if node_ip==node[:identity_server][:ip] then
+        Chef::Log.info "Node IP (me): #{node_ip}"
+      else
+        node_ips << node_ip
+        Chef::Log.info "Node IP: #{node_ip}"
+      end
 
       # Obtain information about First node of the cluster by querying for its tags: http://docs.wso2.org/display/Cluster/Clustering+Identity+Server
       node_number_tag = tags.detect { |u| u =~ /wso2is:node/ }
       node_number = node_number_tag.split(/=/, 2).last.chomp
-      if node_number==1 then
+      if node_number=="1" then
         node1_ip = node_ip
         Chef::Log.info "Found Node 1 IP: #{node1_ip}"
       end
