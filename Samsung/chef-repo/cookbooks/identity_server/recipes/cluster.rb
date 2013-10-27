@@ -105,8 +105,8 @@ r.run_action(:load)
 
 node1_ip = ""
 node_ips = ["#{node[:identity_server][:ip]}"]
-#r = ruby_block "find nodes" do
-#  block do
+r = ruby_block "find nodes" do
+  block do
     node[:server_collection]["node_X"].each do |id, tags|
       node_ip_tag = tags.detect { |u| u =~ /wso2is:listen_ip/ }
       node_ip = node_ip_tag.split(/=/, 2).last.chomp
@@ -125,10 +125,11 @@ node_ips = ["#{node[:identity_server][:ip]}"]
         Chef::Log.info "Found Node 1 IP: #{node1_ip}"
       end
     end
-#  end
-#end
-#r.run_action(:create)
+  end
+end
+r.run_action(:create)
 
+Chef::Log.info "Found IPs: #{node_ips}"
 
 
 
