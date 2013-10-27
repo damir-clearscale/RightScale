@@ -18,6 +18,7 @@ mport = node[:identity_server][:mysql][:port]
 mdb = node[:identity_server][:mysql][:dbname]
 muser = node[:identity_server][:mysql][:username]
 if (mhost.strip.length>0 && mport.strip.length>0 && mdb.strip.length>0 && muser.strip.length>0) then
+  Chef::Log.info "init mysql db"
 
   mysql_connection_info = {:host => node[:identity_server][:mysql][:host],
                            :port => node[:identity_server][:mysql][:port],

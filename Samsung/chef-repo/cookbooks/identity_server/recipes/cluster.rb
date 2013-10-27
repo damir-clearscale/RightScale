@@ -129,9 +129,6 @@ r = ruby_block "find nodes" do
 end
 r.run_action(:create)
 
-Chef::Log.info "Found IPs: #{node_ips}"
-
-
 
 # Is node 1 found? Are we not node 1?
 if node1_ip.strip.length>0 && node1_ip!=node[:identity_server][:ip] then
@@ -144,6 +141,7 @@ if node1_ip.strip.length>0 && node1_ip!=node[:identity_server][:ip] then
   end
 
   right_link_tag "wso2is:node=2"
+  Chef::Log.info "Process node 2"
 else
   # no, lets configure the first node
 
@@ -160,8 +158,8 @@ else
     notifies :restart, "wso2is"
   end
 
-
   right_link_tag "wso2is:node=1"
+  Chef::Log.info "Process node 1"
 end
 right_link_tag "wso2is:listen_ip=#{node[:identity_server][:ip]}"
 
