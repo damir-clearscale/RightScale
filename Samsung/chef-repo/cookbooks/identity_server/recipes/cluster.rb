@@ -190,6 +190,8 @@ end
 #  notifies :restart, "service[wso2is]"
 #end
 
+Chef::Log.info "Enable wso2is service"
+
 service "wso2is" do
   action [ :enable, :start ]
 end
