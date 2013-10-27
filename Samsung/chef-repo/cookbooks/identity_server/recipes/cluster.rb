@@ -42,13 +42,13 @@ template "/opt/wso2is/repository/conf/carbon.xml" do
   source "carbon.xml.erb"
   mode 00644
   action :create
-  #notifies :restart, "service name"
+  notifies :restart, "service[wso2is]"
 end
 template "/opt/wso2is/repository/conf/user-mgt.xml" do
   source "user-mgt.xml.erb"
   mode 00644
   action :create
-  #notifies :restart, "service name"
+  notifies :restart, "service[wso2is]"
 end
 
 
@@ -137,7 +137,7 @@ if node1_ip.strip.length>0 && node1_ip!=node[:identity_server][:ip] then
     source "registry.xml.erb"
     mode 00644
     action :create
-    notifies :restart, "wso2is"
+    notifies :restart, "service[wso2is]"
   end
 
   right_link_tag "wso2is:node=2"
@@ -155,7 +155,7 @@ else
     source "master-datasources.xml.erb"
     mode 00644
     action :create
-    notifies :restart, "wso2is"
+    notifies :restart, "service[wso2is]"
   end
 
   right_link_tag "wso2is:node=1"
@@ -171,7 +171,7 @@ template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
   action :create
   variables(
     :node_ips => node_ips )
-  notifies :restart, "wso2is"
+  notifies :restart, "service[wso2is]"
 end
 
 Chef::Log.info "Start script"
