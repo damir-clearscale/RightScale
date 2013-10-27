@@ -150,19 +150,20 @@ else
     include_recipe "identity_server::dbinit"
   end
 
-  template "/opt/wso2is/repository/conf/datasources/master-datasources.xml" do
-    source "master-datasources.xml.erb"
-    mode 00644
-    action :create
-    notifies :restart, "service[wso2is]"
-  end
-
   right_link_tag "wso2is:node=1"
   Chef::Log.info "Process node 1"
 end
 right_link_tag "wso2is:listen_ip=#{node[:identity_server][:ip]}"
 
 Chef::Log.info "Create the cluster"
+
+template "/opt/wso2is/repository/conf/datasources/master-datasources.xml" do
+  source "master-datasources.xml.erb"
+  mode 00644
+  action :create
+  notifies :restart, "service[wso2is]"
+end
+
 
 template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
   source "axis2.xml.erb"
