@@ -163,6 +163,12 @@ template "/opt/wso2is/repository/conf/datasources/master-datasources.xml" do
   action :create
   notifies :restart, "service[wso2is]"
 end
+template "/opt/wso2is/repository/conf/identity.xml" do
+  source "identity.xml.erb"
+  mode 00644
+  action :create
+  notifies :restart, "service[wso2is]"
+end
 
 
 template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
