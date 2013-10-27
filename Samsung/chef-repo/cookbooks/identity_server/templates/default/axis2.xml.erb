@@ -683,6 +683,8 @@
         <members>
 
 <% @node_ips.each do |a| %>
+<% log "Add member hostName #{a} %>
+
             <member>
                 <hostName><%= a %></hostName>
                 <port>4000</port>

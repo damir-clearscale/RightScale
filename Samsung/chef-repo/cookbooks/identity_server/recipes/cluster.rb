@@ -163,6 +163,8 @@ else
 end
 right_link_tag "wso2is:listen_ip=#{node[:identity_server][:ip]}"
 
+Chef::Log.info "Create the cluster"
+
 template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
   source "axis2.xml.erb"
   mode 00644
@@ -171,6 +173,8 @@ template "/opt/wso2is/repository/conf/axis2/axis2.xml" do
     :node_ips => node_ips )
   notifies :restart, "wso2is"
 end
+
+Chef::Log.info "Start script"
 
 template "/etc/init.d/wso2is" do
   source "init.d_wso2is.erb"
