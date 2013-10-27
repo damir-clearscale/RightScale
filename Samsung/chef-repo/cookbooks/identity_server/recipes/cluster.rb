@@ -52,7 +52,6 @@ template "/opt/wso2is/repository/conf/user-mgt.xml" do
 end
 
 
-
 # Install features.
 
 features = node[:identity_server][:carbon][:features]
@@ -193,7 +192,8 @@ end
 Chef::Log.info "Enable wso2is service"
 
 service "wso2is" do
-  action [ :enable, :start ]
+  supports :restart => true, :status => true
+  action [:enable, :start]
 end
 
 rightscale_marker :end

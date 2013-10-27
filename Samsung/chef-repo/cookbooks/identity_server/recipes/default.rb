@@ -42,13 +42,13 @@ template "/opt/wso2is/repository/conf/carbon.xml" do
   source "carbon.xml.erb"
   mode 00644
   action :create
-  notifies :restart, "service name"
+  notifies :restart, "service[wso2is]"
 end
 template "/opt/wso2is/repository/conf/user-mgt.xml" do
   source "user-mgt.xml.erb"
   mode 00644
   action :create
-  notifies :restart, "service name"
+  notifies :restart, "service[wso2is]"
 end
 
 
