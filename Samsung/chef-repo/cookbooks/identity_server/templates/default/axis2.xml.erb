@@ -682,7 +682,7 @@
         -->
         <members>
 
-<% @node_ips.each do |a| %>
+<% @node_ips.uniq.each do |a| %>
 <% Chef::Log.info "Add member hostName #{a}" %>
             <member>
                 <hostName><%= a %></hostName>
