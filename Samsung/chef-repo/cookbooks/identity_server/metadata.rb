@@ -11,7 +11,6 @@ depends "database"
 recipe "identity_server::default", "Install and configure WSO2 Identity Server (standalone)"
 recipe "identity_server::cluster", "Install and configure WSO2 Identity Cluster"
 recipe "identity_server::dbinit", "Init shared DB"
-recipe "identity_server::cassandra", "Install Apache Cassandra from package"
 
 attribute "identity_server/repo_path",
   :description  => "Path to repository with WSO2 Identity Server package",

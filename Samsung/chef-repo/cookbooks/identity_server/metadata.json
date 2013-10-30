@@ -199,8 +199,7 @@
   "recipes": {
     "identity_server::default": "Install and configure WSO2 Identity Server (standalone)",
     "identity_server::cluster": "Install and configure WSO2 Identity Cluster",
-    "identity_server::dbinit": "Init shared DB",
-    "identity_server::cassandra": "Install Apache Cassandra from package"
+    "identity_server::dbinit": "Init shared DB"
   },
   "version": "1.0.0"
 }
