@@ -69,6 +69,7 @@
     "identity_server/carbon/hostname": {
       "description": "Host name or IP address of the machine hosting this server, e.g. www.wso2.org, 192.168.1.10.\n    This is will become part of the End Point Reference of the services deployed on this server instance.",
       "recipes": [
+        "identity_server::default",
         "identity_server::cluster"
       ],
       "type": "string",
@@ -155,6 +156,7 @@
     "identity_server/cassandra/host": {
       "description": "Host name or IP address of Cassandra DB for CassandraUserStoreManager",
       "recipes": [
+        "identity_server::default",
         "identity_server::cluster"
       ],
       "type": "string",
@@ -169,6 +171,7 @@
     "identity_server/cassandra/port": {
       "description": "Port of Cassandra DB for CassandraUserStoreManager",
       "recipes": [
+        "identity_server::default",
         "identity_server::cluster"
       ],
       "type": "string",
@@ -183,6 +186,7 @@
     "identity_server/cassandra/keyspace": {
       "description": "Keyspace in Cassandra DB for CassandraUserStoreManager",
       "recipes": [
+        "identity_>server::default",
         "identity_server::cluster"
       ],
       "type": "string",
